@@ -48,7 +48,7 @@ async def predict(file: UploadFile = File(...)):
 
         # Get the output prediction
         prediction = interpreter.get_tensor(output_details[0]['index'])[0][0]
-        label = "Real" if prediction > 0.5 else "Fake"  # Binary classification
+        label = "Real" if prediction < 0.5 else "Fake"  # Binary classification
         confidence = float(prediction)  # Probability for the 'Fake' class
 
         # Return the result
