@@ -1,11 +1,21 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware
 from tensorflow.lite.python.interpreter import Interpreter
 from tensorflow.keras.preprocessing.image import img_to_array
 import numpy as np
 from PIL import Image
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to specific domains in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all HTTP headers
+)
 
 # Load the TensorFlow Lite model
 tflite_model_path = "fake_currency_detector.tflite"
